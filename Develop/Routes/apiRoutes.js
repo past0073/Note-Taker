@@ -5,10 +5,10 @@ const { uuid } = require('uuidv4');
 
 module.exports = function (app) {
     
-    app.get('/api.notes', function (req, res) {
-        fs.readFile(dataPath, (err, data) => {
-            if (err) throw err;
-            notesRes = JSON.parse(data);
+    app.get('/api/notes', function (req, res) {
+        // fs.readFile(dataPath, (err, data) => {
+        //     if (err) throw err;
+        //     notesRes = JSON.parse(data);
             res.json(notesRes);
         });
        
@@ -39,7 +39,8 @@ module.exports = function (app) {
         });
 
         app.delete("api/notes/:id", function (req, res) {
-            savedNotes.filter(id);
+            const noteId = req.params.id;
+            savedNotes.filter(noteId);
         })
     });
 };
