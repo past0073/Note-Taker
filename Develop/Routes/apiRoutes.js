@@ -22,18 +22,24 @@ module.exports = function (app) {
             let savedNotes = [];
 
             if (data) {
-                savedNotes = JSON.parse(data)
+                savedNotes.push(JSON.parse(data));
             }
 
             let newNote = req.body;
+
+            newNote.id = uuidv4();
 
             savedNotes.push(newNote);
           
             fs.writeFile(dataPath, JSON.stringify(savedNotes), (err, data) => {
                 if (err) throw err;
-                res.json(newNote);
-            })
+                res.json(savedNotes);
+            });
 
         });
+
+        app.delete("api/notes/:id", function (req, res) {
+            savedNotes.filter(id);
+        })
     });
 };
