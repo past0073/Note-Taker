@@ -6,9 +6,9 @@ const { uuid } = require('uuidv4');
 module.exports = function (app) {
     
     app.get('/api/notes', function (req, res) {
-        // fs.readFile(dataPath, (err, data) => {
-        //     if (err) throw err;
-        //     notesRes = JSON.parse(data);
+        fs.readFile(dataPath, (err, data) => {
+            if (err) throw err;
+            notesRes = JSON.parse(data);
             res.json(notesRes);
         });
        
@@ -20,9 +20,10 @@ module.exports = function (app) {
             if (err) throw err;
         
             let savedNotes = [];
+            noteRes = JSON.parse(data);
 
             if (data) {
-                savedNotes.push(JSON.parse(data));
+                savedNotes.push(noteRes);
             }
 
             let newNote = req.body;
@@ -39,7 +40,7 @@ module.exports = function (app) {
         });
 
         app.delete("api/notes/:id", function (req, res) {
-            const noteId = req.params.id;
+            let noteId = req.params.id;
             savedNotes.filter(noteId);
         })
     });
