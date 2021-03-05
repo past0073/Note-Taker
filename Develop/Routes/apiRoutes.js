@@ -38,10 +38,23 @@ module.exports = function (app) {
             });
 
         });
+    });
 
         app.delete("api/notes/:id", function (req, res) {
             let noteId = req.params.id;
-            savedNotes.filter(noteId);
-        })
-    });
+            fs.readFile(dataPath, (err, data) => {
+                if (err) throw err;
+                allNotes = JSON.parse(data);
+                for (i=0; i<allNotes.length; i++) {
+                    if (noteID === allNotes[i].id) {
+                        allNotes.splice(i,1)
+                    }
+                }
+
+                fs.writeFile(dataPath, JSON.stringify(allNotes), (err, data) => {
+                    if (err) throw err;
+                    res.JSON(req.body)
+                })
+            });
+        });
 };
