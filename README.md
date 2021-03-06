@@ -28,7 +28,5 @@ If you have any questions or run into any issues with this application, please f
 
 ## Screenshots:
 
-![image](https://user-images.githubusercontent.com/74335621/110221878-50c0bc00-7e94-11eb-8b00-355b00a23326.png)
-
 
 ![image](https://user-images.githubusercontent.com/74335621/110221890-5dddab00-7e94-11eb-85ea-360b1e89fb98.png)
