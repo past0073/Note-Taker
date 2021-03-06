@@ -1,3 +1,4 @@
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const fs = require('fs');
 const path = require('path');
 const dataPath = path.join(__dirname, '../db/db.json');
@@ -29,10 +30,7 @@ module.exports = function (app) {
             newNote.id = uuidv4();
 
             savedNotes.push(newNote);
-            
-            // const newNote = { title, text, id: uuidv1() };
-
-                      
+                                  
             fs.writeFile(dataPath, JSON.stringify(savedNotes), (err, data) => {
                 if (err) throw err;
                 res.json(savedNotes);
@@ -42,20 +40,23 @@ module.exports = function (app) {
         }});
     });
 
-        app.delete("api/notes/:id", function (req, res) {
+        app.delete("/api/notes/:id", function (req, res) {
             let noteId = req.params.id;
+
             fs.readFile(dataPath, (err, data) => {
                 if (err) throw err;
-                allNotes = JSON.parse(data);
+
+                let allNotes = JSON.parse(data);
+
                 for (i=0; i<allNotes.length; i++) {
-                    if (noteID === allNotes[i].id) {
-                        allNotes.splice(i,1)
+                    if (noteId == allNotes[i].id) {
+                        allNotes.splice(i, 1)
                     }
                 }
-
-                fs.writeFile(dataPath, JSON.stringify(allNotes), (err, data) => {
+                
+                fs.writeFile(dataPath, JSON.stringify(allNotes), (err) => {
                     if (err) throw err;
-                    res.JSON(req.body)
+                    res.send();
                 })
             });
         });
