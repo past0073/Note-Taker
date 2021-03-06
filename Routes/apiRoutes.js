@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const dataPath = path.join(__dirname, '../db/db.json');
-const { uuid } = require('uuidv4');
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = function (app) {
     
@@ -18,26 +18,28 @@ module.exports = function (app) {
 
         fs.readFile(dataPath, (err, data) => {
             if (err) throw err;
-        
+            else {
             let savedNotes = [];
-            noteRes = JSON.parse(data);
-
             if (data) {
-                savedNotes.push(noteRes);
+            savedNotes = JSON.parse(data);
             }
-
+            
             let newNote = req.body;
 
             newNote.id = uuidv4();
 
             savedNotes.push(newNote);
-          
+            
+            // const newNote = { title, text, id: uuidv1() };
+
+                      
             fs.writeFile(dataPath, JSON.stringify(savedNotes), (err, data) => {
                 if (err) throw err;
                 res.json(savedNotes);
+            
             });
 
-        });
+        }});
     });
 
         app.delete("api/notes/:id", function (req, res) {
